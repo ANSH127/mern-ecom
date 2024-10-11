@@ -14,22 +14,27 @@ export default function CartPage() {
   const navigate = useNavigate();
 
   const fetchCartItems = async () => {
-    if (localStorage.getItem("user") === null) {
+    if (localStorage.getItem("token") === null) {
       toast.error("Please login to view cart");
       return;
     }
     try {
       // setLoading(true);
-      const user = JSON.parse(localStorage.getItem("user"));
       const response = await axios.get(
-        `http://localhost:8080/api/cart/getcart/${user.id}`
+        `http://localhost:4000/api/cart/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
+      console.log(response.data.products);
       let total = 0;
-      response.data.map((item) => {
+      response.data.products.map((item) => {
         total += item.product.price * item.count;
       });
       setSubtotal(total);
-      setCartItems(response.data);
+      setCartItems(response.data.products);
     } catch (error) {
       console.log(error);
     } finally {
@@ -56,9 +61,8 @@ export default function CartPage() {
               >
                 {cartItems.map((product) => (
                   <CartItems
-                    key={product.id}
+                    key={product.product._id}
                     product={product.product}
-                    itemid={product.id}
                     fetchCartItems={fetchCartItems}
                     qty={product.count}
                   />

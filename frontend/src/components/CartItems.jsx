@@ -4,13 +4,23 @@ import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 
-export default function CartItems({ product, itemid, fetchCartItems, qty }) {
+export default function CartItems({ product, fetchCartItems, qty }) {
   const [count, setCount] = useState(qty);
 
   const handleDeleteCartItem = async () => {
+    // console.log(product._id);
+
     try {
       const response = await axios.delete(
-        `http://localhost:8080/api/cart/delete/${itemid}`
+        `http://localhost:4000/api/cart/remove`,
+        {
+          data: {
+            productId: product._id,
+          },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       if (response.status === 200) {
         toast.success("Item removed from cart");
@@ -27,7 +37,16 @@ export default function CartItems({ product, itemid, fetchCartItems, qty }) {
   const handleUpdateQuantity = async (quantity) => {
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/cart/updateqty/${itemid}/${quantity}`
+        `http://localhost:4000/api/cart/update`,
+        {
+          productId: product._id,
+          count: quantity,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       if (response.status === 200) {
         fetchCartItems();
@@ -43,7 +62,7 @@ export default function CartItems({ product, itemid, fetchCartItems, qty }) {
   return (
     <div className="grid grid-cols-6 gap-2  p-4">
       <div className="col-span-1">
-        <img src={product?.image} alt="product" className="w-24 h-24" />
+        <img src={product?.imageUrl} alt="product" className="w-24 h-24" />
       </div>
       <div className="col-span-4">
         <h3 className="text-xl font-semibold">{product?.name}</h3>
@@ -64,7 +83,7 @@ export default function CartItems({ product, itemid, fetchCartItems, qty }) {
           <button
             className="bg-black text-white px-2 py-1 rounded-lg"
             onClick={() => {
-              if (count < product?.quantity) {
+              if (count < product?.countInStock) {
                 setCount(count + 1);
                 handleUpdateQuantity(count + 1);
               }

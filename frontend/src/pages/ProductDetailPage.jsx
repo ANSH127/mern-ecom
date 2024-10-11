@@ -99,21 +99,17 @@ export default function ProductDetailPage() {
     }
 
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
       const response = await axios.post(
-        `http://localhost:8080/api/cart/create`,
+        `http://localhost:4000/api/cart/add`,
+        { productId: id },
         {
-          user: {
-            id: user.id,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          product: {
-            id: id,
-          },
-          count: 1,
         }
       );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         toast.success("Added to cart");
         setIsInCart(true);
       } else {
@@ -126,13 +122,18 @@ export default function ProductDetailPage() {
   };
 
   const isProductInCart = async () => {
-    if (localStorage.getItem("user") === null) {
+    if (localStorage.getItem("token") === null) {
       return false;
     }
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(
-        `http://localhost:8080/api/cart/checkcart/${user.id}/${id}`
+      const response = await axios.post(
+        `http://localhost:4000/api/cart/check`,
+        { productId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       // console.log(response.data);
       setIsInCart(response.data);

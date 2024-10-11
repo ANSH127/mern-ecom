@@ -9,7 +9,7 @@ export default function HomePage() {
     try {
       setLoading(true);
       const response = await fetch(
-        "http://localhost:8080/api/product/getproduct"
+        "http://localhost:4000/api/products/all"
       );
       const data = await response.json();
       // console.log(data);
@@ -31,7 +31,7 @@ export default function HomePage() {
         loading ? <Loadar /> :
         <div className="flex flex-wrap justify-around sm:justify-start gap-y-4 py-4">
         {products.map((product) => (
-          <Card key={product.id} product={product} />
+          <Card key={product._id} product={product} />
         ))}
         
       </div>}

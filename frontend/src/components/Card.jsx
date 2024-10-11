@@ -3,10 +3,10 @@ import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import { Link } from "react-router-dom";
 export default function Card({ product }) {
   return (
-    <Link to={`/product/${product.id}`} >
+    <Link to={`/product/${product._id}`} >
       <div className="shadow-sm rounded-lg  sm:w-60  w-48 p-2  text-black  ">
         <img
-          src={product.image}
+          src={product.imageUrl}
           alt="product"
           className="w-full h-50 object-cover"
         />

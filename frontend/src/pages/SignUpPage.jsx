@@ -26,13 +26,13 @@ export default function SignUpPage() {
     }
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/user/create", {
+      const response = await fetch("http://localhost:4000/api/users/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name,
+          username:name,
           email,
           password,
         }),

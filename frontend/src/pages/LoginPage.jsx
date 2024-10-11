@@ -21,7 +21,7 @@ export default function LoginPage() {
     }
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/user/login", {
+      const response = await fetch("http://localhost:4000/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export default function LoginPage() {
       const data = await response.json();
       if (response.ok) {
         // console.log(data);
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("token", data.token);
         
         navigate("/");
       } else {

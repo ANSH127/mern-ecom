@@ -23,7 +23,7 @@ export default function ProductDetailPage() {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:8080/api/product/getproduct/${id}`
+        `http://localhost:4000/api/products/${id}`
       );
       const data = await response.json();
       // console.log(data);
@@ -166,7 +166,7 @@ export default function ProductDetailPage() {
         <div className="flex flex-wrap justify-around gap-x-2 py-4">
           <div className="sm:w-2/5 w-full mx-auto flex justify-center">
             <img
-              src={productDetails.image}
+              src={productDetails.imageUrl}
               alt="product"
               style={{ width: "400px", height: "600px" }}
             />

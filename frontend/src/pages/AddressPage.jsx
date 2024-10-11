@@ -17,9 +17,14 @@ export default function AddressPage() {
 
   const fetchUserAddress = async () => {
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
+      const token=localStorage.getItem("token")
       const response = await axios.get(
-        `http://localhost:8080/api/address/fetchaddress/${user.id}`
+        `http://localhost:4000/api/address/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log(response.data);
       setAddress(response.data);
@@ -101,17 +106,17 @@ export default function AddressPage() {
                 <div
                   key={add.id}
                   className="p-4 rounded-lg bg-gray-200"
-                  onClick={() => setSelectedAddress(add.id)}
+                  onClick={() => setSelectedAddress(add._id)}
                   style={{
                     backgroundColor:
                       selectedaddress === add.id ? "lightblue" : "",
                     cursor: "pointer",
                   }}
                 >
-                  <h1 className="text-xl font-semibold">{add.name}</h1>
+                  <h1 className="text-xl font-semibold">{add.fullName}</h1>
                   <p>{add.address}</p>
-                  <p>{add.pincode}</p>
-                  <p>{add.phone}</p>
+                  <p>{add.postalCode}</p>
+                  <p>{add.phoneNumber}</p>
                 </div>
               );
             })}

@@ -43,21 +43,25 @@ export default function AddaddressDialog(props) {
     }
 
     const addressData = {
-      name,
+      fullName:name,
       address,
       city,
       state,
-      pincode,
-      phone,
-      userId: JSON.parse(localStorage.getItem("user"))?.id,
+      postalCode:pincode,
+      phoneNumber:phone,
     };
     console.log(addressData);
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/address/createaddress",
-        addressData
+        "http://localhost:4000/api/address/add",
+        addressData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
-      if (response.status === 200) {
+      if (response.status === 201) {
         alert("Address added successfully");
         handleClose();
       } else {
@@ -114,7 +118,7 @@ export default function AddaddressDialog(props) {
             type="text"
             id="city"
             name="city"
-            className="w-full p-2 rounded-lg"
+            className="w-full p-2 rounded-lg border"
             onChange={(e) => setCity(e.target.value)}
           />
         </div>

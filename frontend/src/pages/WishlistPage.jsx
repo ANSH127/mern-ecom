@@ -11,18 +11,19 @@ export default function WishlistPage() {
   const [loading, setLoading] = React.useState(false);
 
   const fetchWishlist = async () => {
-    if (localStorage.getItem("user") === null) {
+    if (localStorage.getItem("token") === null) {
       toast.error("Please login to view wishlist");
       return;
     }
     try {
       setLoading(true);
-      const user = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(
-        `http://localhost:8080/api/wishlist/getwishlist/${user.id}`
-      );
-      //   console.log(response.data);
-      setWishlist(response.data);
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`http://localhost:4000/api/wishlist/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setWishlist(response.data.products);
     } catch (error) {
       console.log(error);
     } finally {
@@ -40,8 +41,8 @@ export default function WishlistPage() {
         <Loadar />
       ) : (
         <div className="flex flex-wrap justify-around sm:justify-start gap-y-4 py-4">
-          {wishlist.map((product) => (
-            <Card key={product.id} product={product.product} />
+          {wishlist?.map((product) => (
+            <Card key={product?._id} product={product} />
           ))}
         </div>
       )}

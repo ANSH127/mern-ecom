@@ -68,7 +68,7 @@ function Header() {
     setAnchorElUser(null);
   };
 
-  const isAuthenticated = localStorage.getItem("user") ? true : false;
+  const isAuthenticated = localStorage.getItem("token") ? true : false;
 
 
 
@@ -216,7 +216,7 @@ function Header() {
                         {setting.name === "Logout" ? (
                           <Typography
                             onClick={() => {
-                              localStorage.removeItem("user");
+                              localStorage.removeItem("token");
                               navigate("/login");
                             }}
                             className="text-black"

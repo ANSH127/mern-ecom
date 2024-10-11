@@ -22,9 +22,7 @@ export default function ProductDetailPage() {
   const fetchProductDetails = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        `http://localhost:4000/api/products/${id}`
-      );
+      const response = await fetch(`http://localhost:4000/api/products/${id}`);
       const data = await response.json();
       // console.log(data);
       setProductDetails(data);
@@ -36,56 +34,66 @@ export default function ProductDetailPage() {
   };
 
   const handleAddToWishlist = async () => {
-    if (localStorage.getItem("user") === null) {
-      toast.error("Please login to add to wishlist");
+    if (localStorage.getItem("token") === null) {
+      toast.error("Please login to add items to your wishlist.");
       return;
     }
 
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
+      const token = localStorage.getItem("token");
       const response = await axios.post(
-        `http://localhost:8080/api/wishlist/create`,
+        `http://localhost:4000/api/wishlist/add`,
+        { productId: id },
         {
-          user: {
-            id: user.id,
-          },
-          product: {
-            id: id,
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-
-      if (response.status === 200) {
-        toast.success("Added to wishlist");
-        setIsInWishlist(true);
-      } else {
-        toast.error("Something went wrong");
-      }
+      // console.log(response.data);
+      setIsInWishlist(true);
+      toast.success("Product added to wishlist!");
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong");
+      if (error.response && error.response.status === 401) {
+        toast.error("Unauthorized access. Please login again.");
+      } else {
+        toast.error(error.response.data.message);
+      }
     }
   };
 
   const isProductInWishlist = async () => {
-    if (localStorage.getItem("user") === null) {
+    if (localStorage.getItem("token") === null) {
       return false;
     }
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(
-        `http://localhost:8080/api/wishlist/checkwishlist/${user.id}/${id}`
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `http://localhost:4000/api/wishlist/check`,
+        { productId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
-      console.log(response.data);
+      // console.log(response.data);
       setIsInWishlist(response.data);
       return response.data;
     } catch (error) {
       console.log(error);
+      if (error.response && error.response.status === 401) {
+        toast.error("Unauthorized access. Please login again.");
+      } else {
+        toast.error("Something went wrong");
+      }
+      return false;
     }
   };
 
   const handleAddToCart = async () => {
-    if (localStorage.getItem("user") === null) {
+    if (localStorage.getItem("token") === null) {
       toast.error("Please login to add to cart");
       return;
     }
@@ -132,22 +140,35 @@ export default function ProductDetailPage() {
       console.log(error);
     }
   };
-
   const handleRemoveFromWishlist = async () => {
+    if (localStorage.getItem("token") === null) {
+      toast.error("Please login to remove items from your wishlist.");
+      return;
+    }
+
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
+      const token = localStorage.getItem("token");
       const response = await axios.delete(
-        `http://localhost:8080/api/wishlist/delete/${user.id}/${id}`
+        `http://localhost:4000/api/wishlist/remove`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data: {
+            productId: id,
+          },
+        }
       );
-      if (response.status === 200) {
-        toast.success("Removed from wishlist");
-        setIsInWishlist(false);
+      // console.log(response.data);
+      setIsInWishlist(false);
+      toast.success("Product removed from wishlist!");
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.status === 401) {
+        toast.error("Unauthorized access. Please login again.");
       } else {
         toast.error("Something went wrong");
       }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong");
     }
   };
 

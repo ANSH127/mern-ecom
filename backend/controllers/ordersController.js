@@ -50,7 +50,11 @@ const getOrders = async (req, res) => {
     const { user } = req;
 
     try {
-        const orders = await Order.find({ user: user._id });
+        const orders = await Order.find({ user: user._id })
+            .populate('orderItems.product')
+            .populate('shippingAddress')
+            .sort({ createdAt: -1 }); // Sort by createdAt in descending order
+
 
         res.status(200).json(orders);
     } catch (error) {

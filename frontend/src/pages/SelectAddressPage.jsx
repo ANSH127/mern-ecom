@@ -4,7 +4,7 @@ import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loadar from "../components/Loadar";
 import Success from "../components/Success";
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
 export default function SelectAddressPage() {
   const [address, setAddress] = React.useState(null);
@@ -30,9 +30,6 @@ export default function SelectAddressPage() {
   React.useEffect(() => {
     fetchUserAddress();
   }, []);
-
-
-
 
   const handleCheckout = async () => {
     if (localStorage.getItem("token") === null) {
@@ -80,17 +77,18 @@ export default function SelectAddressPage() {
       ) : (
         <div className="sm:w-4/5 w-full mx-auto text-black py-4">
           <div>
-
-            <h1 className="text-2xl font-semibold text-center">Select Address</h1>
+            <h1 className="text-2xl font-semibold text-center">
+              Select Address
+            </h1>
           </div>
 
           <div className="flex flex-wrap gap-4 py-2 ">
             {address?.map((add) => {
               return (
                 <div
-                  key={add.id}
+                  key={add._id}
                   className={`p-4 rounded-lg bg-gray-200 w-64 cursor-pointer sm:mx-0 mx-auto  ${
-                    selectedaddress === add._id ? "bg-blue-100" : ""
+                    selectedaddress === add._id ? "bg-blue-300" : ""
                   }`}
                   onClick={() => setSelectedAddress(add._id)}
                 >
@@ -100,11 +98,8 @@ export default function SelectAddressPage() {
                   <p>{add.phoneNumber}</p>
                 </div>
               );
-
             })}
             {/* <AddCircleIcon onClick={handleClickOpen} style={{ fontSize: 30 }} /> */}
-
-            
 
             {address?.length === 0 && (
               <div className="text-center font-bold text-black text-2xl py-4">

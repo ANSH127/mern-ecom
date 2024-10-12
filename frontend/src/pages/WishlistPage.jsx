@@ -5,6 +5,8 @@ import Loadar from "../components/Loadar";
 
 import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function WishlistPage() {
   const [wishlist, setWishlist] = React.useState([]);
@@ -31,6 +33,39 @@ export default function WishlistPage() {
     }
   };
 
+  const handleRemoveFromWishlist = async (id) => {
+    if (localStorage.getItem("token") === null) {
+      toast.error("Please login to remove items from your wishlist.");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.delete(
+        `http://localhost:4000/api/wishlist/remove`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data: {
+            productId: id,
+          },
+        }
+      );
+      toast.success("Product removed from wishlist!");
+
+      setWishlist(wishlist.filter((item) => item._id !== id));
+
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.status === 401) {
+        toast.error("Unauthorized access. Please login again.");
+      } else {
+        toast.error("Something went wrong");
+      }
+    }
+  };
+
   React.useEffect(() => {
     fetchWishlist();
   }, []);
@@ -42,7 +77,18 @@ export default function WishlistPage() {
       ) : (
         <div className="flex flex-wrap justify-around sm:justify-start gap-y-4 py-4">
           {wishlist?.map((product) => (
-            <Card key={product?._id} product={product} />
+            <div key={product?._id} className="relative">
+              <Card product={product} />
+              <button className="absolute top-2 right-2 text-red-500">
+                {wishlist.some((item) => item._id === product._id) ? (
+                  <FavoriteIcon
+                    onClick={() => handleRemoveFromWishlist(product._id)}
+                   />
+                ) : (
+                  <FavoriteBorderIcon />
+                )}
+              </button>
+            </div>
           ))}
         </div>
       )}

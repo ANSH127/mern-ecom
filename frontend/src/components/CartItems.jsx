@@ -1,8 +1,9 @@
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import axios from "axios";
-import {toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function CartItems({ product, fetchCartItems, qty }) {
   const [count, setCount] = useState(qty);
@@ -37,7 +38,7 @@ export default function CartItems({ product, fetchCartItems, qty }) {
         `http://localhost:4000/api/cart/update`,
         {
           productId: product._id,
-          count:quantity,
+          count: quantity,
         },
         {
           headers: {
@@ -58,16 +59,20 @@ export default function CartItems({ product, fetchCartItems, qty }) {
   return (
     <div className="flex items-center justify-between p-4 border-b border-gray-200">
       <div className="flex items-center">
-        <img
-          src={product?.imageUrl}
-          alt="product"
-          className="w-24 h-24 object-cover rounded-lg"
-        />
+        <Link to={`/product/${product?._id}`}>
+          <img
+            src={product?.imageUrl}
+            alt="product"
+            className="w-24 h-24 object-cover rounded-lg"
+          />
+        </Link>
         <div className="ml-4">
-          <h2 className="text-lg font-semibold">{product?.name}</h2>
+          <Link to={`/product/${product?._id}`}>
+            <h2 className="text-lg font-semibold">{product?.name}</h2>
+          </Link>
           <p className="text-gray-600">
             {product?.description.substring(0, 100)}...
-            </p>
+          </p>
           <div className="flex items-center mt-2">
             <button
               className="bg-gray-200 text-gray-700 px-2 py-1 rounded-lg hover:bg-gray-300"

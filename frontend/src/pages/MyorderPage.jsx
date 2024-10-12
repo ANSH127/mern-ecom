@@ -25,6 +25,8 @@ export default function MyOrderPage() {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      console.log(response.data);
+      
       setOrders(response.data);
     } catch (error) {
       console.log(error);
@@ -63,10 +65,10 @@ export default function MyOrderPage() {
             <Divider sx={{ my: 2 }} />
             <Typography variant="h6">Shipping Address</Typography>
             <Typography>
-              {order.shippingAddress.fullName}, {order.shippingAddress.address},{" "}
-              {order.shippingAddress.city}, {order.shippingAddress.state},{" "}
-              {order.shippingAddress.postalCode},{" "}
-              {order.shippingAddress.phoneNumber}
+              {order.shippingAddress?.fullName}, {order.shippingAddress?.address},{" "}
+              {order.shippingAddress?.city}, {order.shippingAddress?.state},{" "}
+              {order.shippingAddress?.postalCode},{" "}
+              {order.shippingAddress?.phoneNumber}
             </Typography>
             <Divider sx={{ my: 2 }} />
             <Typography variant="h6">Order Items</Typography>

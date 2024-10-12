@@ -50,7 +50,7 @@ export default function AddaddressDialog(props) {
       postalCode:pincode,
       phoneNumber:phone,
     };
-    console.log(addressData);
+    // console.log(addressData);
     try {
       const response = await axios.post(
         "http://localhost:4000/api/address/add",
@@ -78,7 +78,7 @@ export default function AddaddressDialog(props) {
       open={open}
       fullWidth={true}
       sx={{
-        borderRadius: "10px",
+        borderRadius: "20px",
         scrollbarWidth: "none",
       }}
     >

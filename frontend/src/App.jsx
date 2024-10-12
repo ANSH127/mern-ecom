@@ -19,6 +19,7 @@ import WishlistPage from "./pages/WishlistPage";
 import CartPage from "./pages/CartPage";
 import MyorderPage from "./pages/MyorderPage";
 import SelectAddressPage from "./pages/SelectAddressPage";
+import AddressPage from "./pages/AddressPage";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/orders" element={<MyorderPage />} />
         <Route path="/selectaddress" element={<SelectAddressPage />} />
+        <Route path="/address" element={<AddressPage />} />
 
       </Routes>
     </Router>

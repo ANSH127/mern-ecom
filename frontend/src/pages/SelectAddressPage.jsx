@@ -1,11 +1,9 @@
 import React from "react";
 import axios from "axios";
-import AddaddressDialog from "../components/AddaddressDialog";
 import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loadar from "../components/Loadar";
 import Success from "../components/Success";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 export default function SelectAddressPage() {
@@ -33,17 +31,8 @@ export default function SelectAddressPage() {
     fetchUserAddress();
   }, []);
 
-  const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState("ansh");
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
-  const handleClose = (value) => {
-    setOpen(false);
-    setSelectedValue(value);
-  };
 
   const handleCheckout = async () => {
     if (localStorage.getItem("token") === null) {
@@ -91,11 +80,8 @@ export default function SelectAddressPage() {
       ) : (
         <div className="sm:w-4/5 w-full mx-auto text-black py-4">
           <div>
-            <AddaddressDialog
-              selectedValue={selectedValue}
-              open={open}
-              onClose={handleClose}
-            />
+
+            <h1 className="text-2xl font-semibold text-center">Select Address</h1>
           </div>
 
           <div className="flex flex-wrap gap-4 py-2 ">

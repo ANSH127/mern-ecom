@@ -20,6 +20,7 @@ import CartPage from "./pages/CartPage";
 import MyorderPage from "./pages/MyorderPage";
 import SelectAddressPage from "./pages/SelectAddressPage";
 import AddressPage from "./pages/AddressPage";
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path="/address" element={<AddressPage />} />
 
       </Routes>
+      <Footer />
     </Router>
   );
 }

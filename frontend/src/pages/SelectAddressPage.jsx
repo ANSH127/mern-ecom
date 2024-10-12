@@ -15,7 +15,7 @@ export default function SelectAddressPage() {
   const fetchUserAddress = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`http://localhost:4000/api/address/`, {
+      const response = await axios.get(`https://backend-sigma-ecru.vercel.app/api/address/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,7 +45,7 @@ export default function SelectAddressPage() {
     try {
       setLoading(true);
       const response = await axios.post(
-        `http://localhost:4000/api/orders/add`,
+        `https://backend-sigma-ecru.vercel.app/api/orders/add`,
         {
           shippingAddress: selectedaddress,
           shippingPrice: 100,

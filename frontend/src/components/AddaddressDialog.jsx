@@ -53,7 +53,7 @@ export default function AddaddressDialog(props) {
     // console.log(addressData);
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/address/add",
+        "https://backend-sigma-ecru.vercel.app/api/address/add",
         addressData,
         {
           headers: {

@@ -11,7 +11,7 @@ export default function CartItems({ product, fetchCartItems, qty }) {
   const handleDeleteCartItem = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/cart/remove`,
+        `https://backend-sigma-ecru.vercel.app/api/cart/remove`,
         {
           data: {
             productId: product._id,
@@ -35,7 +35,7 @@ export default function CartItems({ product, fetchCartItems, qty }) {
   const handleUpdateQuantity = async (quantity) => {
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/cart/update`,
+        `https://backend-sigma-ecru.vercel.app/api/cart/update`,
         {
           productId: product._id,
           count: quantity,

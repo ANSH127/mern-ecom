@@ -29,7 +29,7 @@ export default function AddressPage() {
   const fetchUserAddress = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`http://localhost:4000/api/address/`, {
+      const response = await axios.get(`https://backend-sigma-ecru.vercel.app/api/address/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,7 +45,7 @@ export default function AddressPage() {
   const deleteAddress = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:4000/api/address/${id}`, {
+      await axios.delete(`https://backend-sigma-ecru.vercel.app/api/address/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

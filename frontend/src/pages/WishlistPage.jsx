@@ -20,7 +20,7 @@ export default function WishlistPage() {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      const response = await axios.get(`http://localhost:4000/api/wishlist/`, {
+      const response = await axios.get(`https://backend-sigma-ecru.vercel.app/api/wishlist/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -42,7 +42,7 @@ export default function WishlistPage() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.delete(
-        `http://localhost:4000/api/wishlist/remove`,
+        `https://backend-sigma-ecru.vercel.app/api/wishlist/remove`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

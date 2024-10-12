@@ -21,7 +21,7 @@ export default function MyOrderPage() {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/orders/`, {
+      const response = await axios.get(`https://backend-sigma-ecru.vercel.app/api/orders/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

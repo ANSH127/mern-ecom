@@ -22,7 +22,7 @@ export default function ProductDetailPage() {
   const fetchProductDetails = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:4000/api/products/${id}`);
+      const response = await fetch(`https://backend-sigma-ecru.vercel.app/api/products/${id}`);
       const data = await response.json();
       // console.log(data);
       setProductDetails(data);
@@ -42,7 +42,7 @@ export default function ProductDetailPage() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        `http://localhost:4000/api/wishlist/add`,
+        `https://backend-sigma-ecru.vercel.app/api/wishlist/add`,
         { productId: id },
         {
           headers: {
@@ -70,7 +70,7 @@ export default function ProductDetailPage() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        `http://localhost:4000/api/wishlist/check`,
+        `https://backend-sigma-ecru.vercel.app/api/wishlist/check`,
         { productId: id },
         {
           headers: {
@@ -100,7 +100,7 @@ export default function ProductDetailPage() {
 
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/cart/add`,
+        `https://backend-sigma-ecru.vercel.app/api/cart/add`,
         { productId: id },
         {
           headers: {
@@ -127,7 +127,7 @@ export default function ProductDetailPage() {
     }
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/cart/check`,
+        `https://backend-sigma-ecru.vercel.app/api/cart/check`,
         { productId: id },
         {
           headers: {
@@ -150,7 +150,7 @@ export default function ProductDetailPage() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.delete(
-        `http://localhost:4000/api/wishlist/remove`,
+        `https://backend-sigma-ecru.vercel.app/api/wishlist/remove`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

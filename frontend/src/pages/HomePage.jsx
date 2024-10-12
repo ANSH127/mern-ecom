@@ -9,7 +9,7 @@ export default function HomePage() {
     try {
       setLoading(true);
       const response = await fetch(
-        "http://localhost:4000/api/products/all"
+        "https://backend-sigma-ecru.vercel.app/api/products/all"
       );
       const data = await response.json();
       // console.log(data);

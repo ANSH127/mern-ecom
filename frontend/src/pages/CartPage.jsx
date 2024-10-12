@@ -21,7 +21,7 @@ export default function CartPage() {
     try {
       // setLoading(true);
       const response = await axios.get(
-        `http://localhost:4000/api/cart/`,
+        `https://backend-sigma-ecru.vercel.app/api/cart/`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

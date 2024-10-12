@@ -50,7 +50,7 @@ export default function AddressPage() {
   };
 
   const handleCheckout = async () => {
-    if (localStorage.getItem("user") === null) {
+    if (localStorage.getItem("token") === null) {
       toast.error("Please login to checkout");
       return;
     }
@@ -62,11 +62,22 @@ export default function AddressPage() {
 
     try {
       setLoading(true);
-      const user = JSON.parse(localStorage.getItem("user"));
       const response = await axios.post(
-        `http://localhost:8080/api/order/createorder/${user.id}/${selectedaddress}`
+        `http://localhost:4000/api/orders/add`,
+        {
+          shippingAddress: selectedaddress,
+          shippingPrice: 100,
+          paymentMethod: "COD",
+          deliverydate: new Date(new Date().setDate(new Date().getDate() + 3)), // 3 days after the current date
+
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
-      if (response.data == true) {
+      if (response.status == 201) {
         setCheckout(true);
       } else {
         toast.error("Error in placing order");
@@ -109,7 +120,7 @@ export default function AddressPage() {
                   onClick={() => setSelectedAddress(add._id)}
                   style={{
                     backgroundColor:
-                      selectedaddress === add.id ? "lightblue" : "",
+                      selectedaddress === add._id ? "lightblue" : "",
                     cursor: "pointer",
                   }}
                 >

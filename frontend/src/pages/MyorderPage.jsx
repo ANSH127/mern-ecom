@@ -6,22 +6,14 @@ export default function MyorderPage() {
 
   const fetchOrders = async () => {
     try {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const response = await axios.get(
-        `http://localhost:8080/api/order/getorder/${user.id}`
-      );
-      //   console.log(response.data);
+      const response = await axios.get(`http://localhost:4000/api/orders/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      console.log(response.data);
 
-      // remove duplicate group id
-      let unique = {};
-      let distinct = [];
-      for (let i in response.data) {
-        if (typeof unique[response.data[i].groupId] == "undefined") {
-          distinct.push(response.data[i]);
-        }
-        unique[response.data[i].groupId] = 0;
-      }
-      setOrders(distinct);
+      setOrders(response.data);
 
       //   setOrders(response.data);
     } catch (error) {
@@ -49,8 +41,8 @@ export default function MyorderPage() {
             className="flex justify-between border-b-2 border-gray-200 py-2"
             key={order.id}
           >
-            <div className="w-1/4">{order.groupId}</div>
-            <div className="w-1/4">{order.orderDate}</div>
+            <div className="w-1/4">{order._id}</div>
+            <div className="w-1/4">{order.createdAt}</div>
             <div className="w-1/4">₹ {order.totalPrice}</div>
             <div className="w-1/4">{order.status}</div>
           </div>

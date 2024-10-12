@@ -14,6 +14,7 @@ import {
   
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Link } from "react-router-dom";
 
 export default function MyOrderPage() {
   const [orders, setOrders] = useState([]);
@@ -74,17 +75,21 @@ export default function MyOrderPage() {
             <Typography variant="h6">Order Items</Typography>
             {order.orderItems.map((item) => (
               <Card key={item._id} sx={{ display: "flex", mb: 2 }}>
+                <Link to={`/product/${item.product._id}`}>
                 <CardMedia
                   component="img"
                   sx={{ width: 151 }}
                   image={item.product.imageUrl}
                   alt={item.product.name}
                 />
+                </Link>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <CardContent>
+                    <Link to={`/product/${item.product._id}`}>
                     <Typography component="div" variant="h6">
                       {item.product.name}
                     </Typography>
+                    </Link>
                     <Typography
                       variant="subtitle1"
                       color="text.secondary"

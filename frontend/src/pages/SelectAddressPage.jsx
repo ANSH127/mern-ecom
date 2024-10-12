@@ -1,15 +1,14 @@
 import React from "react";
-
 import axios from "axios";
-
 import AddaddressDialog from "../components/AddaddressDialog";
-
 import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loadar from "../components/Loadar";
 import Success from "../components/Success";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
-export default function AddressPage() {
+export default function SelectAddressPage() {
   const [address, setAddress] = React.useState(null);
   const [selectedaddress, setSelectedAddress] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
@@ -17,15 +16,12 @@ export default function AddressPage() {
 
   const fetchUserAddress = async () => {
     try {
-      const token=localStorage.getItem("token")
-      const response = await axios.get(
-        `http://localhost:4000/api/address/`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`http://localhost:4000/api/address/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log(response.data);
       setAddress(response.data);
     } catch (error) {
@@ -69,7 +65,6 @@ export default function AddressPage() {
           shippingPrice: 100,
           paymentMethod: "COD",
           deliverydate: new Date(new Date().setDate(new Date().getDate() + 3)), // 3 days after the current date
-
         },
         {
           headers: {
@@ -96,14 +91,6 @@ export default function AddressPage() {
       ) : (
         <div className="sm:w-4/5 w-full mx-auto text-black py-4">
           <div>
-            <div className="text-center">
-              <button
-                className="bg-blue-500 text-white p-2 rounded-lg"
-                onClick={handleClickOpen}
-              >
-                Add Address
-              </button>
-            </div>
             <AddaddressDialog
               selectedValue={selectedValue}
               open={open}
@@ -111,18 +98,15 @@ export default function AddressPage() {
             />
           </div>
 
-          <div className="flex flex-col gap-4 py-2">
+          <div className="flex flex-wrap gap-4 py-2 ">
             {address?.map((add) => {
               return (
                 <div
                   key={add.id}
-                  className="p-4 rounded-lg bg-gray-200"
+                  className={`p-4 rounded-lg bg-gray-200 w-64 cursor-pointer sm:mx-0 mx-auto  ${
+                    selectedaddress === add._id ? "bg-blue-100" : ""
+                  }`}
                   onClick={() => setSelectedAddress(add._id)}
-                  style={{
-                    backgroundColor:
-                      selectedaddress === add._id ? "lightblue" : "",
-                    cursor: "pointer",
-                  }}
                 >
                   <h1 className="text-xl font-semibold">{add.fullName}</h1>
                   <p>{add.address}</p>
@@ -130,7 +114,11 @@ export default function AddressPage() {
                   <p>{add.phoneNumber}</p>
                 </div>
               );
+
             })}
+            {/* <AddCircleIcon onClick={handleClickOpen} style={{ fontSize: 30 }} /> */}
+
+            
 
             {address?.length === 0 && (
               <div className="text-center font-bold text-black text-2xl py-4">
@@ -138,16 +126,14 @@ export default function AddressPage() {
               </div>
             )}
 
-            <div className="text-center">
+            <div className="text-center w-full">
               {loading ? (
                 <Loadar />
               ) : (
-                <button
-                  className="bg-blue-500 text-white p-2 rounded-lg"
+                <ArrowCircleRightIcon
                   onClick={handleCheckout}
-                >
-                  Proceed to Payment
-                </button>
+                  style={{ fontSize: 40 }}
+                />
               )}
             </div>
           </div>

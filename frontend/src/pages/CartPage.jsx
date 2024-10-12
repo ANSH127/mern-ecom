@@ -94,7 +94,7 @@ export default function CartPage() {
               {subtotal > 0 && (
                 <button
                   className="bg-black text-white w-full py-2 rounded-lg mt-4"
-                  onClick={() => navigate("/address")}
+                  onClick={() => navigate("/selectaddress")}
                 >
                   Proceed to Checkout
                 </button>

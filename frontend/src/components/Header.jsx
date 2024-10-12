@@ -32,6 +32,11 @@ const settings = [
     showOnAuth:true,
   },
   {
+    name: "Address",
+    path: "/address",
+    showOnAuth: true,
+  },
+  {
     name: "Login",
     path: "/login",
     showOnAuth: false,

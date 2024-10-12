@@ -8,5 +8,6 @@ router.use(requireAuth);
 
 router.post('/add',addressController.addAddress);
 router.get('/',addressController.getAddresses);
+router.delete('/:id',addressController.deleteAddress);
 
 module.exports=router;

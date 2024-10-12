@@ -26,5 +26,21 @@ const getAddresses = async (req, res) => {
     }
 }
 
-module.exports = { addAddress, getAddresses };
+const deleteAddress = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        await Address.findByIdAndDelete(id);
+
+        res.status(200).json({ message: "Address deleted" });
+
+    } catch (error) {
+        res.status(500).json({ message: "Server error" });
+    }
+}
+
+
+
+
+module.exports = { addAddress, getAddresses, deleteAddress };
 

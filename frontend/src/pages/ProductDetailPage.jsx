@@ -8,6 +8,9 @@ import Loadar from "../components/Loadar";
 import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCartItemsLength } from "../redux/slices/cartItemsLength";
+
 export default function ProductDetailPage() {
   const { id } = useParams();
   //   console.log(id);
@@ -18,6 +21,7 @@ export default function ProductDetailPage() {
   const [isInCart, setIsInCart] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const fetchProductDetails = async () => {
     try {
@@ -111,6 +115,7 @@ export default function ProductDetailPage() {
 
       if (response.status === 201) {
         toast.success("Added to cart");
+        dispatch(setCartItemsLength("increment"));
         setIsInCart(true);
       } else {
         toast.error("Something went wrong");

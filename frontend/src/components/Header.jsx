@@ -11,10 +11,13 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { Badge } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { setCartItemsLength } from "../redux/slices/cartItemsLength";
 
 import AvatarFace from "../assets/images/Avatar1.jpg";
 import SadFace from "../assets/images/sad-face.png";
@@ -27,9 +30,9 @@ const settings = [
     showOnAuth: true,
   },
   {
-    name:"My Orders",
-    path:"/orders",
-    showOnAuth:true,
+    name: "My Orders",
+    path: "/orders",
+    showOnAuth: true,
   },
   {
     name: "Address",
@@ -74,9 +77,33 @@ function Header() {
   };
 
   const isAuthenticated = localStorage.getItem("token") ? true : false;
+  const dispatch = useDispatch();
 
+  const fetchCartItems = async () => {
+    if (localStorage.getItem("token") === null) {
+      return;
+    }
+    try {
+      // setLoading(true);
+      const response = await axios.get(
+        `https://backend-sigma-ecru.vercel.app/api/cart/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(setCartItemsLength(response.data.products.length));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+  const cartItemsLength = useSelector((state) => state.cartItemsLength.value);
 
+  React.useEffect(() => {
+    fetchCartItems();
+  }, []);
 
   return (
     <div className="sm:w-4/5 w-full mx-auto ">
@@ -184,17 +211,26 @@ function Header() {
               </Tooltip>
               <Tooltip title="Open cart">
                 <Link to="/cart" className="text-black">
-                  <ShoppingCartOutlinedIcon
+                  <Badge
+                    badgeContent={cartItemsLength}
+                    color="primary"
                     sx={{
-                      fontSize: "2rem",
                       marginX: "10px",
                     }}
-                  />
+                  >
+                    <ShoppingCartOutlinedIcon
+                      sx={{
+                        fontSize: "2rem",
+                      }}
+                    />
+                  </Badge>
                 </Link>
               </Tooltip>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src={isAuthenticated ? AvatarFace : SadFace}
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={isAuthenticated ? AvatarFace : SadFace}
                   />
                 </IconButton>
               </Tooltip>

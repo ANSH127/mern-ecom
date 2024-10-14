@@ -4,9 +4,12 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCartItemsLength } from "../redux/slices/cartItemsLength";
 
 export default function CartItems({ product, fetchCartItems, qty }) {
   const [count, setCount] = useState(qty);
+  const dispatch = useDispatch();
 
   const handleDeleteCartItem = async () => {
     try {
@@ -25,6 +28,7 @@ export default function CartItems({ product, fetchCartItems, qty }) {
       if (response.status === 200) {
         toast.success("Item removed from cart");
         fetchCartItems(); // Refresh the cart items
+        dispatch(setCartItemsLength("decrement"));
       }
     } catch (error) {
       toast.error("Failed to remove item from cart");

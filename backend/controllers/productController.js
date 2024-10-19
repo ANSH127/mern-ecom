@@ -3,13 +3,16 @@ const Product = require('../models/productModel');
 
 const addProduct = async (req, res) => {
     try {
-        const { name, description, price, countInStock, imageUrl } = req.body;
+        const { name, description, price, countInStock, imageUrl
+            , category
+         } = req.body;
         const product = new Product({
             name,
             description,
             price,
             countInStock,
-            imageUrl
+            imageUrl,
+            category
         });
         await product.save();
         res.json({ message: "Product added successfully" });
@@ -40,8 +43,22 @@ const getProductById = async (req, res) => {
     }
 }
 
+const getProductsByCategory = async (req, res) => { 
+    console.log(req.params.cname);
+    
+    try {
+        const products = await Product.find({ category: req.params.cname }).limit(10);
+        res.json(products);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server Error" });
+    }
+}
+
 module.exports = {
     addProduct,
     getAllProducts,
-    getProductById
+    getProductById,
+    getProductsByCategory
 }

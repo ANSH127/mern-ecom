@@ -11,4 +11,6 @@ router.get('/all', productController.getAllProducts);
 
 router.get('/:id', productController.getProductById);
 
+router.get('/category/:cname', productController.getProductsByCategory);
+
 module.exports = router;

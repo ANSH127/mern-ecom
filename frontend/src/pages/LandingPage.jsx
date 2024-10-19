@@ -105,19 +105,34 @@ export default function LandingPage() {
         </h2>
         <div className="flex flex-wrap justify-center gap-10 py-4 ">
           <div className="h-auto w-72 ">
-            <img src={trending1} alt="Trending 1" />
+            <img src={trending1} alt="Trending 1"
+            className=" 
+            rounded-md
+            hover:scale-105 transform transition duration-500 
+
+            "
+             />
           </div>
 
           <div className="h-auto w-72 ">
-            <img src={trending2} alt="Trending 2" />
+            <img src={trending2} alt="Trending 2"
+            className="
+            rounded-md
+
+             hover:scale-105 transform transition duration-500"
+             />
           </div>
 
           <div className="h-auto w-72 ">
-            <img src={trending3} alt="Trending 3" />
+            <img src={trending3} alt="Trending 3" 
+            className="rounded-md hover:scale-105 transform transition duration-500"
+            />
           </div>
 
           <div className="h-auto w-72 ">
-            <img src={trending4} alt="Trending 4" />
+            <img src={trending4} alt="Trending 4"
+            className="rounded-md hover:scale-105 transform transition duration-500"
+             />
           </div>
         </div>
       </div>

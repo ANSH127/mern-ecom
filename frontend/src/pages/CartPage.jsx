@@ -48,7 +48,7 @@ export default function CartPage() {
 
   return (
     <div>
-      <div className="sm:w-4/5 w-full mx-auto">
+      <div className="sm:w-11/12 w-full mx-auto">
         {loading ? (
           <Loadar />
         ) : (

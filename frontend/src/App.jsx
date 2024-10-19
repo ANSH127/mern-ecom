@@ -21,14 +21,16 @@ import MyorderPage from "./pages/MyorderPage";
 import SelectAddressPage from "./pages/SelectAddressPage";
 import AddressPage from "./pages/AddressPage";
 import Footer from "./components/Footer";
+import LandingPage from "./pages/LandingPage";
 
 import { useParams } from "react-router-dom";
 function App() {
   return (
     <Provider store={store}>
-      <Router>
+      <Router >
         <Header />
-        <Routes>
+        <Routes >
+          <Route path="/landing" element={<LandingPage />}  />
           <Route path="/" element={<HomePage />} />
           <Route path="/product/:id" element={<ProductDetailWrapper />} 
           

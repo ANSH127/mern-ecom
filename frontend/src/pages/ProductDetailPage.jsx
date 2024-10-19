@@ -205,7 +205,7 @@ export default function ProductDetailPage() {
   }, []);
 
   return (
-    <div className="sm:w-4/5 w-full mx-auto text-black">
+    <div className="sm:w-11/12 w-full mx-auto text-black">
       {/* // display product details here half side image and half side details */}
       {loading ? (
         <Loadar />

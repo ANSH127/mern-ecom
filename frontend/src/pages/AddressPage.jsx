@@ -62,7 +62,7 @@ export default function AddressPage() {
   }, []);
 
   return (
-    <div className="sm:w-4/5 w-full mx-auto text-black ">
+    <div className="sm:w-11/12 w-full mx-auto text-black ">
         {loading ? (
           <Loadar />
         ) : (

@@ -71,7 +71,7 @@ export default function WishlistPage() {
   }, []);
 
   return (
-    <div className="sm:w-4/5 w-full mx-auto text-white ">
+    <div className="sm:w-11/12 w-full mx-auto text-white ">
       {loading ? (
         <Loadar />
       ) : (

@@ -26,7 +26,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="sm:w-4/5 w-full mx-auto text-white ">
+    <div className="sm:w-11/12 w-full mx-auto text-white ">
       {
         loading ? <Loadar /> :
         <div className="flex flex-wrap justify-around sm:justify-start gap-y-4 py-4">

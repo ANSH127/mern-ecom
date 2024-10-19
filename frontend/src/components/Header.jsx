@@ -131,7 +131,7 @@ function Header() {
   }, []);
 
   return (
-    <div className="sm:w-4/5 w-full mx-auto ">
+    <div className="sm:w-11/12 w-full mx-auto ">
       <AppBar
         position="static"
         sx={{ backgroundColor: "white", color: "black", borderRadius: "10px" }}
@@ -226,10 +226,10 @@ function Header() {
               ))}
             </Box>
 
-            <Box sx={{ flexGrow: 2, alignItems: "center",
-               display:{ xs: "none", md: "flex" }
+            <Box sx={{ flexGrow: 1,
+               display:{ xs: "none", md: "flex" },justifyContent:'end'
                 }}>
-              <Stack spacing={2} sx={{ width: '60%' }} padding={1}>
+              <Stack spacing={1} sx={{ width: '50%' }} padding={1}>
                 <Autocomplete
                   id="free-solo-demo"
                   freeSolo

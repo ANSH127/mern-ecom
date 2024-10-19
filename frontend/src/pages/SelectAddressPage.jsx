@@ -75,7 +75,7 @@ export default function SelectAddressPage() {
       {checkout ? (
         <Success />
       ) : (
-        <div className="sm:w-4/5 w-full mx-auto text-black py-4">
+        <div className="sm:w-11/12 w-full mx-auto text-black py-4">
           <div>
             <h1 className="text-2xl font-semibold text-center">
               Select Address

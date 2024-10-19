@@ -30,8 +30,8 @@ function App() {
       <Router >
         <Header />
         <Routes >
-          <Route path="/landing" element={<LandingPage />}  />
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<LandingPage />}  />
+          <Route path="/products" element={<HomePage />} />
           <Route path="/product/:id" element={<ProductDetailWrapper />} 
           
           />

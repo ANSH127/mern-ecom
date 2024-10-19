@@ -11,7 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Badge } from "@mui/material";
+import { Badge, TextField } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,10 @@ import { setCartItemsLength } from "../redux/slices/cartItemsLength";
 
 import AvatarFace from "../assets/images/Avatar1.jpg";
 import SadFace from "../assets/images/sad-face.png";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+
+import Stack from "@mui/material/Stack";
+import Autocomplete from "@mui/material/Autocomplete";
 
 const pages = [];
 const settings = [
@@ -56,11 +59,32 @@ const settings = [
   },
 ];
 
+const top100Films = [
+  { title: "The Shawshank Redemption", year: 1994 },
+  { title: "The Godfather", year: 1972 },
+  { title: "The Godfather: Part II", year: 1974 },
+  { title: "The Dark Knight", year: 2008 },
+  { title: "12 Angry Men", year: 1957 },
+  { title: "Schindler's List", year: 1993 },
+  { title: "Pulp Fiction", year: 1994 },
+  {
+    title: "The Lord of the Rings: The Return of the King",
+    year: 2003,
+  },
+  { title: "The Good, the Bad and the Ugly", year: 1966 },
+  { title: "Fight Club", year: 1999 },
+  {
+    title: "The Lord of the Rings: The Fellowship of the Ring",
+    year: 2001,
+  },
+];
+
 import { Link } from "react-router-dom";
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [search, setSearch] = React.useState("");
   const navigate = useNavigate();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -202,16 +226,51 @@ function Header() {
               ))}
             </Box>
 
-
+            <Box sx={{ flexGrow: 2, alignItems: "center",
+               display:{ xs: "none", md: "flex" }
+                }}>
+              <Stack spacing={2} sx={{ width: '60%' }} padding={1}>
+                <Autocomplete
+                  id="free-solo-demo"
+                  freeSolo
+                  options={top100Films.map((option) => option.title)}
+                  onInputChange={(event, newInputValue) => {
+                    setSearch(newInputValue);
+                  }}
+                  onChange={(event, newValue) => {
+                    setSearch(newValue);
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Search"
+                      
+                      sx={{
+                        backgroundColor: "white",
+                        borderRadius: "10px",
+                        border: "1px solid #ccc",
+                        boxShadow: "0 1px 1px rgba(0,0,0,0.075) inset",
+                        "&:hover": {
+                          borderColor: "#ccc",
+                        },
+                        "&:focus": {
+                          borderColor: "#ccc",
+                        },
+                      }}
+                    />
+                  )}
+                />
+              </Stack>
+              <IconButton size="large" aria-label="search" color="inherit">
+                <SearchOutlinedIcon
+                  onClick={() => {
+                    console.log(search);
+                  }}
+                />
+              </IconButton>
+            </Box>
 
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Search">
-                <Link to="/search" className="text-black">
-                  <SearchOutlinedIcon
-                    sx={{ fontSize: "2rem", marginX: "1px" }}
-                  />
-                </Link>
-              </Tooltip>
               <Tooltip title="Open wishlist">
                 <Link to="/wishlist" className="text-black">
                   <FavoriteBorderOutlinedIcon

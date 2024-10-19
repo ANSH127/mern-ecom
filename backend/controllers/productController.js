@@ -44,7 +44,7 @@ const getProductById = async (req, res) => {
 }
 
 const getProductsByCategory = async (req, res) => { 
-    console.log(req.params.cname);
+    
     
     try {
         const products = await Product.find({ category: req.params.cname }).limit(10);

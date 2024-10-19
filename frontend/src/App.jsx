@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  
   // Link
 } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -21,6 +22,7 @@ import SelectAddressPage from "./pages/SelectAddressPage";
 import AddressPage from "./pages/AddressPage";
 import Footer from "./components/Footer";
 
+import { useParams } from "react-router-dom";
 function App() {
   return (
     <Provider store={store}>
@@ -28,7 +30,9 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/product/:id" element={<ProductDetailPage />} />
+          <Route path="/product/:id" element={<ProductDetailWrapper />} 
+          
+          />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
@@ -42,5 +46,10 @@ function App() {
     </Provider>
   );
 }
+
+const ProductDetailWrapper = () => {
+  const { id } = useParams();
+  return <ProductDetailPage key={id} />;
+};
 
 export default App;

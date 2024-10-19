@@ -12,6 +12,7 @@ const productSchema = new Schema({
     price: { type: Number, required: true },
     countInStock: { type: Number, required: true },
     imageUrl: { type: String, required: true },
+    hoverImageUrl: { type: String, required: false },
     createdAt: { type: Date, default: Date.now },
 
 

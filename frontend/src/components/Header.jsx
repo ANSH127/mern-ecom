@@ -21,6 +21,7 @@ import { setCartItemsLength } from "../redux/slices/cartItemsLength";
 
 import AvatarFace from "../assets/images/Avatar1.jpg";
 import SadFace from "../assets/images/sad-face.png";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const pages = [];
 const settings = [
@@ -201,7 +202,16 @@ function Header() {
               ))}
             </Box>
 
+
+
             <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Search">
+                <Link to="/search" className="text-black">
+                  <SearchOutlinedIcon
+                    sx={{ fontSize: "2rem", marginX: "1px" }}
+                  />
+                </Link>
+              </Tooltip>
               <Tooltip title="Open wishlist">
                 <Link to="/wishlist" className="text-black">
                   <FavoriteBorderOutlinedIcon

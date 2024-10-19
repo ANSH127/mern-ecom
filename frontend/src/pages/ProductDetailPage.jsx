@@ -44,7 +44,7 @@ export default function ProductDetailPage() {
   const fetchSimilarProducts = async (category) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/products/category/${category}`
+        `https://backend-sigma-ecru.vercel.app/api/products/category/${category}`
       );
       let data = await response.json();
 

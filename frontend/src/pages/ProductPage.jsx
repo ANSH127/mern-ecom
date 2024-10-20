@@ -6,16 +6,13 @@ export default function ProductPage() {
   const [products, setProducts] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
 
-  
   const { category } = useParams();
-  console.log( category);
-  
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://backend-sigma-ecru.vercel.app/api/products/category/${category.toLowerCase()}`
+        `http://localhost:4000/api/products/category/${category.toLowerCase()}`
       );
       const data = await response.json();
       // console.log(data);
@@ -33,14 +30,20 @@ export default function ProductPage() {
 
   return (
     <div className="sm:w-11/12 w-full mx-auto text-white ">
-      {
-        loading ? <Loadar /> :
+      {loading ? (
+        <Loadar />
+      ) : (
         <div className="flex flex-wrap justify-around sm:justify-start gap-y-4 py-4">
-        {products.map((product) => (
-          <Card key={product._id} product={product} />
-        ))}
-        
-      </div>}
+          {products?.map((product) => (
+            <Card key={product._id} product={product} />
+          ))}
+
+          {products.length === 0 && (
+            <div className="text-2xl text-center w-full text-black">No products found</div>
+          )}
+
+        </div>
+      )}
     </div>
   );
 }

@@ -5,7 +5,7 @@ const addProduct = async (req, res) => {
     try {
         const { name, description, price, countInStock, imageUrl
             , category, hoverImageUrl
-         } = req.body;
+        } = req.body;
         const product = new Product({
             name,
             description,
@@ -44,12 +44,24 @@ const getProductById = async (req, res) => {
     }
 }
 
-const getProductsByCategory = async (req, res) => { 
-    
-    
+const getProductsByCategory = async (req, res) => {
+
+
     try {
-        const products = await Product.find({ category: req.params.cname }).limit(10);
-        res.json(products);
+        const usersearch = req.params.cname;
+        const categorylist = await Product.find().distinct('category');
+        const searchWords = usersearch.split(" ");
+        for (let i = 0; i < searchWords.length; i++) {
+            searchWords[i] = searchWords[i].toLowerCase();
+        }
+        const matchedCategory = searchWords.find(word => categorylist.includes(word));
+        if (matchedCategory) {
+            const products = await Product.find({ category: matchedCategory });
+            res.json(products);
+        }
+        else {
+            res.json([]);
+        }
     }
     catch (error) {
         console.error(error);

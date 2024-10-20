@@ -12,7 +12,7 @@ export default function ProductPage() {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:4000/api/products/category/${category.toLowerCase()}`
+        `https://backend-sigma-ecru.vercel.app/api/products/category/${category.toLowerCase()}`
       );
       const data = await response.json();
       // console.log(data);

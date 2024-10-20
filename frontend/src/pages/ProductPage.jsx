@@ -1,15 +1,21 @@
 import Card from "../components/Card";
 import Loadar from "../components/Loadar";
 import React from "react";
-export default function HomePage() {
+import { useParams } from "react-router-dom";
+export default function ProductPage() {
   const [products, setProducts] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+
+  
+  const { category } = useParams();
+  console.log( category);
+  
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://backend-sigma-ecru.vercel.app/api/products/all"
+        `https://backend-sigma-ecru.vercel.app/api/products/category/${category.toLowerCase()}`
       );
       const data = await response.json();
       // console.log(data);

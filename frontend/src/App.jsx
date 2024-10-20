@@ -4,13 +4,13 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  
+
   // Link
 } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
-import HomePage from "./pages/HomePage";
+import ProductPage from "./pages/ProductPage";
 import Header from "./components/Header";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -27,14 +27,12 @@ import { useParams } from "react-router-dom";
 function App() {
   return (
     <Provider store={store}>
-      <Router >
+      <Router>
         <Header />
-        <Routes >
-          <Route path="/" element={<LandingPage />}  />
-          <Route path="/products" element={<HomePage />} />
-          <Route path="/product/:id" element={<ProductDetailWrapper />} 
-          
-          />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/products/:category" element={<ProductWrapper />} />
+          <Route path="/productdetail/:id" element={<ProductDetailWrapper />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
@@ -48,6 +46,11 @@ function App() {
     </Provider>
   );
 }
+
+const ProductWrapper = () => {
+  const { category } = useParams();
+  return <ProductPage key={category} />;
+};
 
 const ProductDetailWrapper = () => {
   const { id } = useParams();

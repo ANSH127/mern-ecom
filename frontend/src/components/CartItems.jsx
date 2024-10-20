@@ -63,7 +63,7 @@ export default function CartItems({ product, fetchCartItems, qty }) {
   return (
     <div className="flex items-center justify-between p-4 border-b border-gray-200">
       <div className="flex items-center">
-        <Link to={`/product/${product?._id}`}>
+        <Link to={`/productdetail/${product?._id}`}>
           <img
             src={product?.imageUrl}
             alt="product"
@@ -71,7 +71,7 @@ export default function CartItems({ product, fetchCartItems, qty }) {
           />
         </Link>
         <div className="ml-4">
-          <Link to={`/product/${product?._id}`}>
+          <Link to={`/productdetail/${product?._id}`}>
             <h2 className="text-lg font-semibold">{product?.name}</h2>
           </Link>
           <p className="text-gray-600">

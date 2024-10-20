@@ -15,8 +15,9 @@ import trending4 from "../assets/images/4_Printed_Shirts.webp";
 
 export default function LandingPage() {
   const [products, setProducts] = React.useState([]);
+  const [products2, setProducts2] = React.useState([]);
   const [selectedCategory, setSelectedCategory] =
-    React.useState("NEW ARRIVALS");
+    React.useState("SHIRTS");
 
   const [selectedCategory2, setSelectedCategory2] =
     React.useState("SHORTS");
@@ -24,7 +25,7 @@ export default function LandingPage() {
   const fetchProducts = async () => {
     try {
       const response = await fetch(
-        "https://backend-sigma-ecru.vercel.app/api/products/all"
+        `https://backend-sigma-ecru.vercel.app/api/products/category/${selectedCategory2.toLowerCase()}`
       );
       const data = await response.json();
       // console.log(data);
@@ -34,9 +35,27 @@ export default function LandingPage() {
     }
   };
 
+  const fetchProducts2 = async () => {
+    try {
+      const response = await fetch(
+        `https://backend-sigma-ecru.vercel.app/api/products/category/${selectedCategory.toLowerCase()}`
+      );
+      const data = await response.json();
+      // console.log(data);
+      setProducts2(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   React.useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [selectedCategory2]);
+
+  React.useEffect(() => {
+    fetchProducts2();
+  }, [selectedCategory]);
 
   return (
     <div className="sm:w-11/12 w-full mx-auto text-white">
@@ -67,29 +86,29 @@ export default function LandingPage() {
           <button
             className={`px-2 py-2 text-sm rounded-3xl
               border-black border ${
-                selectedCategory === "NEW ARRIVALS"
+                selectedCategory === "SHIRTS"
                   ? "bg-black text-white"
                   : "bg-white text-black"
               }`}
-            onClick={() => setSelectedCategory("NEW ARRIVALS")}
+            onClick={() => setSelectedCategory("SHIRTS")}
           >
-            NEW ARRIVALS
+            SHIRTS
           </button>
           <button
             className={`px-2 py-2 text-sm rounded-3xl
           border-black border ${
-            selectedCategory === "MOST TRENDING"
+            selectedCategory === "JEANS"
               ? "bg-black text-white"
               : "bg-white text-black"
           }`}
-            onClick={() => setSelectedCategory("MOST TRENDING")}
+            onClick={() => setSelectedCategory("JEANS")}
           >
-            MOST TRENDING
+            JEANS
           </button>
         </div>
 
         <div className="flex overflow-x-auto space-x-4 py-4">
-          {products.map((product) => (
+          {products2.map((product) => (
             <div key={product._id} className="flex-shrink-0">
               <>
                 <Card product={product} />

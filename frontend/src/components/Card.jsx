@@ -13,7 +13,7 @@ export default function Card({ product }) {
     setImageUrl(product.imageUrl);
   };
   return (
-    <Link to={`/product/${product._id}`}>
+    <Link to={`/productdetail/${product._id}`}>
       <div className="shadow-sm rounded-lg  sm:w-60  w-48 p-2  text-black  ">
         <img
           src={imageUrl}

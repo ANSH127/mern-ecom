@@ -7,6 +7,7 @@ import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
+
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -19,7 +20,7 @@ export default function CartPage() {
       return;
     }
     try {
-      // setLoading(true);
+      setLoading(true);
       const response = await axios.get(
         `https://backend-sigma-ecru.vercel.app/api/cart/`,
         {
@@ -49,9 +50,7 @@ export default function CartPage() {
   return (
     <div>
       <div className="sm:w-11/12 w-full mx-auto">
-        {loading ? (
-          <Loadar />
-        ) : (
+        
           <div className="grid grid-cols-4  gap-4 p-4">
             <div className="col-span-4 sm:col-span-3 shadow-md  p-4 rounded-lg ">
               <h3 className="text-center font-bold text-xl">Cart Items</h3>
@@ -59,7 +58,8 @@ export default function CartPage() {
                 className="overflow-y-auto"
                 style={{ height: "70vh", scrollbarWidth: "thin" }}
               >
-                {cartItems.map((product) => (
+                {loading && <Loadar />}
+                {!loading && cartItems.map((product) => (
                   <CartItems
                     key={product.product._id}
                     product={product.product}
@@ -68,7 +68,7 @@ export default function CartPage() {
                   />
                 ))}
 
-                {cartItems.length === 0 && (
+                {cartItems.length === 0 && !loading && (
                   <div className="text-center font-bold text-black text-2xl py-4">
                     No products in cart
                   </div>
@@ -101,7 +101,7 @@ export default function CartPage() {
               )}
             </div>
           </div>
-        )}
+        
 
         <ToastContainer
           position="top-center"

@@ -15,12 +15,15 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Link } from "react-router-dom";
+import Loadar from "../components/Loadar";
 
 export default function MyOrderPage() {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchOrders = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(`https://backend-sigma-ecru.vercel.app/api/orders/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -31,6 +34,9 @@ export default function MyOrderPage() {
       setOrders(response.data);
     } catch (error) {
       console.log(error);
+    }
+    finally{
+      setLoading(false);
     }
   };
 
@@ -43,6 +49,7 @@ export default function MyOrderPage() {
       <Typography variant="h4" align="center" className="p-3">
         My Orders
       </Typography>
+      {loading && <Loadar />}
       {orders.map((order) => (
         <Accordion key={order._id}>
           <AccordionSummary

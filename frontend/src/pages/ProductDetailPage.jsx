@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCartItemsLength } from "../redux/slices/cartItemsLength";
+import LoginSignUpDialog from "../components/LoginSignUpDialog";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -23,6 +24,19 @@ export default function ProductDetailPage() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
+
 
   const fetchProductDetails = async () => {
     try {
@@ -59,7 +73,11 @@ export default function ProductDetailPage() {
 
   const handleAddToWishlist = async () => {
     if (localStorage.getItem("token") === null) {
-      toast.error("Please login to add items to your wishlist.");
+
+      handleClickOpen();
+      // toast.error("Please login to add items to your wishlist.");
+
+
       return;
     }
 
@@ -118,7 +136,7 @@ export default function ProductDetailPage() {
 
   const handleAddToCart = async () => {
     if (localStorage.getItem("token") === null) {
-      toast.error("Please login to add to cart");
+      handleClickOpen();
       return;
     }
 
@@ -312,6 +330,12 @@ export default function ProductDetailPage() {
               </button>
             </div>}
           </div>
+
+          <LoginSignUpDialog
+            open={open}
+            onClose={handleClose}
+          />
+
         </>
       )}
 

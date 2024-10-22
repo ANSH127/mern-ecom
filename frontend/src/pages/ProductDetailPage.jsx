@@ -255,10 +255,13 @@ export default function ProductDetailPage() {
               </button>
             </div>
           </div>
-          <div className="p-6"
-          >
-            <h1 className="text-2xl font-bold text-center">Similar Products</h1>
-            <div className="relative">
+          <div className="p-6">
+            {
+            similarProducts.length > 0 &&
+              <div className="relative">
+              <h1 className="text-2xl font-bold text-center">
+                Similar Products
+              </h1>
               <div className="flex overflow-x-scroll no-scrollbar space-x-4 py-4">
                 {similarProducts.map((product) => (
                   <>
@@ -275,7 +278,9 @@ export default function ProductDetailPage() {
                       <p className="text-lg">INR {product.price}</p>
                       <button
                         className="bg-black text-white px-4 py-2 rounded mt-2 w-full"
-                        onClick={() => navigate(`/product/${product._id}`)}
+                        onClick={() =>
+                          navigate(`/productdetail/${product._id}`)
+                        }
                       >
                         View Details
                       </button>
@@ -305,7 +310,7 @@ export default function ProductDetailPage() {
               >
                 &gt;
               </button>
-            </div>
+            </div>}
           </div>
         </>
       )}

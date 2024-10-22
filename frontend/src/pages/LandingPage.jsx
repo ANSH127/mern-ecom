@@ -65,8 +65,7 @@ export default function LandingPage() {
         infiniteLoop
         showArrows={false}
         showStatus={false}
-        showIndicators={false}
-        interval={8000}
+        interval={6000}
         stopOnHover={false}
         className="p-2"
       >

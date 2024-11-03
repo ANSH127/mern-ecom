@@ -8,6 +8,8 @@ const wishlistRoutes = require('../routes/wishlist');
 const cartRoutes = require('../routes/cart');
 const addressRoutes = require('../routes/address');
 const OrderRoutes = require('../routes/order');
+const paymentRoutes = require('../routes/payment');
+
 const cors = require('cors');
 const app = express();
 
@@ -21,6 +23,7 @@ app.use('/api/wishlist', wishlistRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/address', addressRoutes);
 app.use('/api/orders', OrderRoutes);
+app.use('/api/payment', paymentRoutes);
 
 
 mongoose.connect(process.env.MONGO_URI).then(() => {

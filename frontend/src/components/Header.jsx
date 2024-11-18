@@ -142,7 +142,7 @@ function Header() {
               }}
             >
               <Link to="/" className="text-black">
-                Ecommerce
+                TrendMingle
               </Link>
             </Typography>
 
@@ -199,7 +199,7 @@ function Header() {
               }}
             >
               <Link to="/" className="text-black">
-                Ecommerce
+                TrendMingle
               </Link>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>

@@ -12,15 +12,16 @@ import trending1 from "../assets/images/8_Suits.webp";
 import trending2 from "../assets/images/3_Denims.webp";
 import trending3 from "../assets/images/Trousers_2.webp";
 import trending4 from "../assets/images/4_Printed_Shirts.webp";
+import Loadar from "../components/Loadar";
 
 export default function LandingPage() {
   const [products, setProducts] = React.useState([]);
   const [products2, setProducts2] = React.useState([]);
-  const [selectedCategory, setSelectedCategory] =
-    React.useState("SHIRTS");
+  const [loadar, setLoadar] = React.useState(true);
 
-  const [selectedCategory2, setSelectedCategory2] =
-    React.useState("SHORTS");
+  const [selectedCategory, setSelectedCategory] = React.useState("SHIRTS");
+
+  const [selectedCategory2, setSelectedCategory2] = React.useState("SHORTS");
 
   const fetchProducts = async () => {
     try {
@@ -45,9 +46,10 @@ export default function LandingPage() {
       setProducts2(data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoadar(false);
     }
-  }
-
+  };
 
   React.useEffect(() => {
     fetchProducts();
@@ -107,13 +109,19 @@ export default function LandingPage() {
         </div>
 
         <div className="flex overflow-x-auto space-x-4 py-4">
-          {products2.map((product) => (
-            <div key={product._id} className="flex-shrink-0">
-              <>
-                <Card product={product} />
-              </>
+          {loadar ? (
+            <div className="text-center justify-center items-center">
+              <Loadar />
             </div>
-          ))}
+          ) : (
+            products2.map((product) => (
+              <div key={product._id} className="flex-shrink-0">
+                <>
+                  <Card product={product} />
+                </>
+              </div>
+            ))
+          )}
         </div>
       </div>
 
@@ -123,34 +131,42 @@ export default function LandingPage() {
         </h2>
         <div className="flex flex-wrap justify-center gap-10 py-4 ">
           <div className="h-auto w-72 ">
-            <img src={trending1} alt="Trending 1"
-            className=" 
+            <img
+              src={trending1}
+              alt="Trending 1"
+              className=" 
             rounded-md
             hover:scale-105 transform transition duration-500 
 
             "
-             />
-          </div>
-
-          <div className="h-auto w-72 ">
-            <img src={trending2} alt="Trending 2"
-            className="
-            rounded-md
-
-             hover:scale-105 transform transition duration-500"
-             />
-          </div>
-
-          <div className="h-auto w-72 ">
-            <img src={trending3} alt="Trending 3" 
-            className="rounded-md hover:scale-105 transform transition duration-500"
             />
           </div>
 
           <div className="h-auto w-72 ">
-            <img src={trending4} alt="Trending 4"
-            className="rounded-md hover:scale-105 transform transition duration-500"
-             />
+            <img
+              src={trending2}
+              alt="Trending 2"
+              className="
+            rounded-md
+
+             hover:scale-105 transform transition duration-500"
+            />
+          </div>
+
+          <div className="h-auto w-72 ">
+            <img
+              src={trending3}
+              alt="Trending 3"
+              className="rounded-md hover:scale-105 transform transition duration-500"
+            />
+          </div>
+
+          <div className="h-auto w-72 ">
+            <img
+              src={trending4}
+              alt="Trending 4"
+              className="rounded-md hover:scale-105 transform transition duration-500"
+            />
           </div>
         </div>
       </div>
@@ -182,13 +198,19 @@ export default function LandingPage() {
         </div>
 
         <div className="flex overflow-x-auto space-x-4 py-4">
-          {products.map((product) => (
-            <div key={product._id} className="flex-shrink-0">
-              <>
-                <Card product={product} />
-              </>
+          {loadar ? (
+            <div className="text-center justify-center items-center">
+              <Loadar />
             </div>
-          ))}
+          ) : (
+            products.map((product) => (
+              <div key={product._id} className="flex-shrink-0">
+                <>
+                  <Card product={product} />
+                </>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>

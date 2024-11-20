@@ -5,12 +5,16 @@ import "react-toastify/dist/ReactToastify.css";
 import Loadar from "../components/Loadar";
 import Success from "../components/Success";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import { useDispatch } from "react-redux";
+import { setCartItemsLength } from "../redux/slices/cartItemsLength";
+
 
 export default function SelectAddressPage() {
   const [address, setAddress] = React.useState(null);
   const [selectedAddress, setSelectedAddress] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [checkout, setCheckout] = React.useState(false);
+  const dispatch = useDispatch();
 
   const fetchUserAddress = async () => {
     try {
@@ -60,6 +64,7 @@ export default function SelectAddressPage() {
       order_id: data.id,
       handler: async function (response) {
         // Verify payment signature
+        setLoading(true);
         try {
           const verifyResponse = await axios.post(
             "https://backend-sigma-ecru.vercel.app/api/payment/verify",
@@ -98,6 +103,7 @@ export default function SelectAddressPage() {
               }
             );
             if (orderResponse.status === 201) {
+              dispatch(setCartItemsLength(0));
               setCheckout(true);
             } else {
               toast.error("Error in placing order");
@@ -108,6 +114,9 @@ export default function SelectAddressPage() {
         } catch (error) {
           console.log(error);
           toast.error("Error in verifying payment");
+        }
+        finally{
+          setLoading(false);
         }
       },
       prefill: {
